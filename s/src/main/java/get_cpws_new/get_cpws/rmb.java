@@ -3,6 +3,7 @@ package get_cpws_new.get_cpws;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,38 +38,38 @@ public class rmb implements Runnable {
         while (true)
             try {
                 if(ip.size()>400){
-                    Thread.sleep(5000);
+                    Thread.sleep(20000);
                     continue;
                 }
                 Document document = Jsoup
-                        .connect("http://dec.ip3366.net/api/?key=20170706151152111&getnum=300&anonymoustype=3&area=1&proxytype=0")
+                        .connect("http://dec.ip3366.net/api/?key=201707061511521&getnum=90&anonymoustype=3&area=1&proxytype=01")
                         .timeout(10000)
                         .get();
                 System.out.println(document.body().text().length());
                 String all_ip = document.select("body").text();
 
-
-                if (all_ip.length() > 1000) {
+                if (all_ip.length() > 150) {
                     String[] all_ips = all_ip.split(" ");
                     //使用的时候再分割
                     for (String s : all_ips) {
                         ip.add(s);
                     }
+                    change=0;
                 }
                 else{
                         try {
-                            Thread.sleep(1000 * (++change));
+                            Thread.sleep(7000 * (++change));
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
                     }
                     System.out.println(ip.size());
 
-                Thread.sleep(1000);
+                Thread.sleep(7000);
             } catch (Exception e) {
-                e.printStackTrace();
+
                 try {
-                    Thread.sleep(1000 * (++change));
+                    Thread.sleep(7000 * (++change));
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
@@ -77,17 +78,29 @@ public class rmb implements Runnable {
 
     }
 
+    public static void try_alldc(){
+        while (true){
+            try {
+                Document document=Jsoup.connect("http://dec.ip3366.net/api/?key=20170706151152111&getnum=90&anonymoustype=3&area=1&proxytype=0").get();
+                //System.out.println(document.text());
+                System.out.println("cahngdu"+document.text().length());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     //获取ip，使ip能够实时更新,这样就不用创建另外一条线程了
     public static String get_ip() {
         String IP = "";
         if (ip.size() == 0) {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
         IP = ip.remove(0);
         System.out.println(IP);
         return IP;
@@ -107,6 +120,7 @@ public class rmb implements Runnable {
             Thread one = new Thread(rmb);
             one.start();
         }
+        //try_alldc();
         rmb.ip.remove(0);
     }
 
