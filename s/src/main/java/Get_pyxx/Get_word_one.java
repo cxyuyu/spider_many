@@ -1,7 +1,6 @@
 package Get_pyxx;
 
 import get_cpws_new.get_cpws.rmb;
-import get_qyxx.Retry;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,11 +14,11 @@ import java.util.List;
 /**
  * Created by cxyu on 17-7-6.
  */
-public class Get_word implements Runnable {
+public class Get_word_one implements Runnable {
 
     public static List<String> URL_p = Collections.synchronizedList(new ArrayList<String>());
     public static List<String> URL_e = Collections.synchronizedList(new ArrayList<String>());
-    public static void get_word(List<String> urls) {
+    public static String get_word(List<String> urls) {
         for (int i = 0; i < urls.size(); i++)
             try {
                 //get_word是最近一个月的一种，get_word2是最近一个月的另一种较少
@@ -47,13 +46,14 @@ public class Get_word implements Runnable {
 
                 if (content == null) {
                     //进行保存工作
-                    URL_p.add(urls.get(i));
-
+                    return null;
                 }
+                return content;
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
+            return null;
     }
 
 
@@ -72,7 +72,6 @@ public class Get_word implements Runnable {
         String ip_port="";
         String content = "";
         try {
-
             while (true) {
                 ip_port = Cheak_ip.get_cheakip();
                 if (ip_port==null)
@@ -172,15 +171,17 @@ public class Get_word implements Runnable {
                 content = content + "\n" + s;
             }
             content = content.substring(1, content.length());
-            appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
+            return content;
+            //appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
         } catch (Exception e) {
             e.printStackTrace();
             //content=get_word_4(url);
             System.out.println(url);
             URL_e.add(url);
             Cheak_ip.ip_cheak.remove(ip_port);
+            return "false";
         }
-        return content;
+
     }
 
     public static String get_word_3(String url) {
@@ -280,15 +281,17 @@ public class Get_word implements Runnable {
                 content = content + "\n" + s;
             }
             content = content.substring(1, content.length());
-            appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
+            return content;
+            //appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
         } catch (Exception e) {
             e.printStackTrace();
             //content=get_word_3(url);
             System.out.println(url);
             URL_e.add(url);
             Cheak_ip.ip_cheak.remove(ip_port);
+            return "false";
         }
-        return content;
+
     }
 
     public static String get_word_2(String url) {
@@ -399,15 +402,17 @@ public class Get_word implements Runnable {
                 content = content + "\n" + s;
             }
             content = content.substring(1, content.length());
-            appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
+            return content;
+            //appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
         } catch (Exception e) {
             e.printStackTrace();
             //content=get_word_2(url);
             System.out.println(url);
             URL_e.add(url);
             Cheak_ip.ip_cheak.remove(ip_port);
+            return "false";
         }
-        return content;
+
     }
 
     public static String get_word_1(String url) {
@@ -516,15 +521,17 @@ public class Get_word implements Runnable {
                 content = content + "\n" + s;
             }
             content = content.substring(1, content.length());
-            appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
+            return content;
+            //appendMethodB("/home/cxyu/tmp/qyxx/" + title, content);
         } catch (Exception e) {
             e.printStackTrace();
             //content=get_word_1(url);
             System.out.println(url);
             URL_e.add(url);
             Cheak_ip.ip_cheak.remove(ip_port);
+            return "false";
         }
-        return content;
+
     }
 
 
@@ -544,7 +551,7 @@ public class Get_word implements Runnable {
     public static void appendMethodB2(String fileName, String content) {
         try {
             //打开一个写文件器，构造函数中的第二个参数true表示以追加形式写文件
-            FileWriter writer = new FileWriter(fileName);
+            FileWriter writer = new FileWriter(fileName,true);
             writer.write(content);
             writer.close();
         } catch (IOException e) {
@@ -601,7 +608,7 @@ public class Get_word implements Runnable {
         }
 
         Cheak_ip cheak_ip=new Cheak_ip();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 3; i++) {
             Thread one = new Thread(cheak_ip);
             one.start();
         }
@@ -626,6 +633,6 @@ public class Get_word implements Runnable {
         String url = "http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed4fece763105392230e54f72567848c5e2c88c212c0735b36163bbca6767f4f468099377a01a44d5ae0f03c77310634f2c688de45cacb943f5e8f3035000bf64005a46d&p=9179840cc5904ead09bd9b7d0d148b&newp=92759a46d6c11bfc57ef856845598b231610db2151d4d7176b82c825d7331b001c3bbfb423241607d7c67f6d0aab4859eff13571370221a3dda5c91d9fb4c57479d2&user=baidu&fm=sc&query=site%3A%28tianyancha%2Ecom%29+%B4%C5%B3%EF&qid=e002844f00037ded&p1=1";
         List<String> urls = new ArrayList<String>();
         urls.add(url);
-        Get_word.get_word(urls);
+        Get_word_one.get_word(urls);
     }
 }

@@ -15,7 +15,7 @@ public class Save_problem implements Runnable {
                 save();
                 re_e();
             }
-        }, 1000, 600);//在1秒后执行此任务,每次间隔2秒,如果传递一个Data参数,就可以在某个固定的时间执行这个任务.
+        }, 1000, 60000);//在1秒后执行此任务,每次间隔2秒,如果传递一个Data参数,就可以在某个固定的时间执行这个任务.
 
     }
 
@@ -31,7 +31,7 @@ public class Save_problem implements Runnable {
             content=content+"\n"+url;
         }
         //最前端保持一个换行，防止最后粘连在一起
-        Get_word.appendMethodB("wen",content);
+        Get_word.appendMethodB2("wen",content);
     }
 
     public static void save(){
@@ -46,7 +46,7 @@ public class Save_problem implements Runnable {
             content=content+"\n"+url;
         }
         //最前端保持一个换行，防止最后粘连在一起
-        Get_word.appendMethodB("za",content);
+        Get_word.appendMethodB2("za",content);
     }
     public void run() {
         save();

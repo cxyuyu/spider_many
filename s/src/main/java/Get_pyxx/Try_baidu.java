@@ -73,7 +73,7 @@ public class Try_baidu implements Runnable {
                         Elements divs = document.select("#content_left > div");
                         for (Element div : divs) {
                             String url = div.select("div > div.f13 > a.m").attr("href");
-                            System.out.println("https://www.baidu.com/s?wd=site%3A(tianyancha.com)%20" + word + "&pn=" + i * 10 + "&oq=site%3A(tianyancha.com)%20" + word + "&ie=utf-8"+"   url        "+url);
+             //               System.out.println("https://www.baidu.com/s?wd=site%3A(tianyancha.com)%20" + word + "&pn=" + i * 10 + "&oq=site%3A(tianyancha.com)%20" + word + "&ie=utf-8"+"   url        "+url);
                             urls.add(url);
 
                         }
